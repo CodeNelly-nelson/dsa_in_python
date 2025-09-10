@@ -37,6 +37,7 @@ head = {
 
 # class to create single node
 from os import pread
+from more_itertools import tail
 from textdistance import length
 
 
@@ -67,7 +68,7 @@ class LinkedList:
             self.length += 1
         return True
     
-    # Method to pop an item to the end of the linkedlist
+    # Method to remove and return an item to the end of the linkedlist O(n)
     def pop(self):
         if self.length == 0:
             return None
@@ -84,7 +85,18 @@ class LinkedList:
             self.tail = None
         return temp.value
             
-            
+    # Method to add an item to the front or beginning of the linkedlist O(1)
+    def prepend(self, value):
+        new_node = Node(value)
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+            self.length += 1
+        else:
+            new_node.next = self.head
+            self.head = new_node
+            self.length += 1
+        return True
         
     # method to print all linked list items
     def print_list(self):
@@ -95,6 +107,11 @@ class LinkedList:
         print("None")
 
 
+
+
+
+""" Main Program entry"""
+
 def main():
     
     my_linked_list = LinkedList(11)  # initialize the linked list with 4
@@ -102,7 +119,12 @@ def main():
     my_linked_list.append(23) 
     my_linked_list.append(7) 
     my_linked_list.append(4) 
-
+    
+    print("Initial LinkedList: ", end="" )
+    my_linked_list.print_list() 
+    
+    # Adding to front
+    my_linked_list.prepend(30)
    
     
     
@@ -114,10 +136,10 @@ def main():
     my_linked_list.print_list() 
     
     print("Popped item: ",my_linked_list.pop())
-    print("Popped item: ",my_linked_list.pop())
-    print("Popped item: ",my_linked_list.pop())
-    print("Popped item: ",my_linked_list.pop())
-    print("Popped item: ",my_linked_list.pop())
+    # print("Popped item: ",my_linked_list.pop())
+    # print("Popped item: ",my_linked_list.pop())
+    # print("Popped item: ",my_linked_list.pop())
+    # print("Popped item: ",my_linked_list.pop())
 
     
     print("\nAfter pops ")
