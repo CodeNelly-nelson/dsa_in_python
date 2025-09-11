@@ -109,6 +109,25 @@ class LinkedList:
         if self.length == 0:
             self.tail = None
         return temp
+    
+    # get an item by index
+    def get(self,  index):
+        if index < 0 or index >= self.length:
+            return None
+        temp = self.head
+        for _ in range(index):
+            temp = temp.next
+        return temp
+    
+    # set the value of a Node in the linked list
+    def set_value(self, index, value):
+        temp = self.get(index)
+        if temp:
+            temp.value = value
+            return True
+        return False
+            
+        
             
         
     # method to print all linked list items
@@ -121,16 +140,14 @@ class LinkedList:
 
 
 
-
-
 """ Main Program entry"""
 
 def main():
     
     my_linked_list = LinkedList(11)  # initialize the linked list with 11
     my_linked_list.append(4)
-    # my_linked_list.append(2)
-    # my_linked_list.append(8)
+    my_linked_list.append(2)
+    my_linked_list.append(8)
  
     print("Initial LinkedList: ", end="" )
     my_linked_list.print_list() 
@@ -142,25 +159,20 @@ def main():
     print("LinkedList: ", end="" )
     my_linked_list.print_list() 
     
-    # pop from end
-    # my_linked_list.pop()
+    # print("Grab by index:", my_linked_list.get(3).value)
     
-    # pop from front and return
-    print(my_linked_list.pop_first().value)
-  
-    print("\nAfter pop_first")
-     
-    if my_linked_list.length == 0:
-        print("Head:", my_linked_list.head)   # get the head of the linked list
-        print("Tail:", my_linked_list.tail)   # get the tail of the linked list
-        print("Length:",my_linked_list.length)
-    else:
-        print("Head:", my_linked_list.head.value)   # get the head of the linked list
-        print("Tail:", my_linked_list.tail.value)   # get the tail of the linked list
-        print("Length:",my_linked_list.length)
-        
+    my_linked_list.set_value(2, 16)
+    
+    print("\n#****** After changing of value of a node *****#\n")
     print("LinkedList: ", end="" )
-    my_linked_list.print_list()     # print all the elements of the linked list
+    my_linked_list.print_list() 
+    
+    print("Head:", my_linked_list.head.value)   # get the head of the linked list
+    print("Tail:", my_linked_list.tail.value)   # get the tail of the linked list
+    print("Length:",my_linked_list.length)
+    
+    print("LinkedList: ", end="" )
+    my_linked_list.print_list() 
 
 
     
