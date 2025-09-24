@@ -15,6 +15,10 @@
 
 
 # --------inkedlist under the hood -----
+from arrow import get
+from regex import T
+
+
 head = {
     "value": 11,
     "next": {
@@ -36,11 +40,6 @@ head = {
 """TODO: LinkedList"""
 
 # class to create single node
-from os import pread
-from more_itertools import tail
-from textdistance import length
-
-
 class Node:
     def __init__(self,value):
         self.value = value
@@ -111,7 +110,7 @@ class LinkedList:
         return temp
     
     # get an item by index
-    def get(self,  index):
+    def get_item(self,  index):
         if index < 0 or index >= self.length:
             return None
         temp = self.head
@@ -121,11 +120,27 @@ class LinkedList:
     
     # set the value of a Node in the linked list
     def set_value(self, index, value):
-        temp = self.get(index)
+        temp = self.get_item(index)
         if temp:
             temp.value = value
             return True
         return False
+    
+    # insert and item a particular index 
+    def insert_at_index(self, index, value):
+        if index < 0 or index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+        new_node = Node(value)
+        temp = self.get_item(index-1)
+        new_node.next = temp.next
+        temp.next = new_node
+        self.length += 1
+        return True
+
             
         
             
@@ -159,13 +174,13 @@ def main():
     print("LinkedList: ", end="" )
     my_linked_list.print_list() 
     
-    # print("Grab by index:", my_linked_list.get(3).value)
+
     
-    my_linked_list.set_value(2, 16)
-    
-    print("\n#****** After changing of value of a node *****#\n")
+    print("\n#****** After inserting of a node  as an index *****#\n")
     print("LinkedList: ", end="" )
     my_linked_list.print_list() 
+    
+    my_linked_list.insert_at_index(2,50)
     
     print("Head:", my_linked_list.head.value)   # get the head of the linked list
     print("Tail:", my_linked_list.tail.value)   # get the tail of the linked list
