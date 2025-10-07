@@ -135,18 +135,41 @@ class LinkedList:
 
     # Removing of a node  at an index
     def remove_at_index(self, index):
-        if index < 0 or index > self.length:
+        # Check for invalid index
+        if index < 0 or index >= self.length:
             return None
+        # Remove the first node
         if index == 0:
             return self.pop_first()
+        # Remove the last node
         if index == self.length - 1:
             return self.pop()
-        prev = self.get_item(index - 1)
-        temp = prev.next
-        prev.next = temp.next
-        temp.next = None
+        # Remove a middle node
+        prev = self.get_item(index - 1)  # Get the node before the one to remove
+        temp = prev.next  # The node to remove
+        prev.next = temp.next  # Skip over 'temp'
+        temp.next = None  # Disconnect 'temp'
         self.length -= 1
         return temp
+
+    def reverse_LL(self):
+        # If the list is empty or has only one node, no need to reverse
+        if not self.head or not self.head.next:
+            return True
+        # Swap head and tail first
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+        # Initialize pointers
+        before = None
+        after = None
+        # Traverse the list and reverse the links
+        for _ in range(self.length):
+            after = temp.next  # store next node
+            temp.next = before  # reverse the pointer
+            before = temp  # move before forward
+            temp = after  # move temp forward
+        return True
 
     # method to print all linked list items
     def print_list(self):
@@ -176,7 +199,7 @@ def main():
 
     print("\n#****** After removing of a node  at an index *****#\n")
 
-    print("Node removed: ", my_linked_list.remove_at_index(1))
+    my_linked_list.reverse_LL()
 
     print("Head:", my_linked_list.head.value)  # get the head of the linked list
     print("Tail:", my_linked_list.tail.value)  # get the tail of the linked list
