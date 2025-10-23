@@ -15,6 +15,8 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
+        
+
 
     # Append a new node at the end
     def append(self, value):
@@ -31,11 +33,9 @@ class LinkedList:
     def find_middle_node(self):
         slow = self.head
         fast = self.head
-
         while fast is not None and fast.next is not None:
             slow = slow.next
             fast = fast.next.next
-
         return slow
 
     # Helper to display list
