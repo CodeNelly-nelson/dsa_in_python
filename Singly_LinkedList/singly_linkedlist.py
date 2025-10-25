@@ -99,7 +99,7 @@ class LinkedList:
         return temp
 
     # get an item by index
-    def get_item(self, index):
+    def get(self, index):
         if index < 0 or index >= self.length:
             return None
         temp = self.head
@@ -109,14 +109,14 @@ class LinkedList:
 
     # set the value of a Node in the linked list
     def set_value(self, index, value):
-        temp = self.get_item(index)
+        temp = self.get(index)
         if temp:
             temp.value = value
             return True
         return False
 
     # insert and item a particular index
-    def insert_at_index(self, index, value):
+    def insert(self, index, value):
         if index < 0 or index > self.length:
             return False
         if index == 0:
@@ -124,7 +124,7 @@ class LinkedList:
         if index == self.length:
             return self.append(value)
         new_node = Node(value)
-        temp = self.get_item(index - 1)
+        temp = self.get(index - 1)
         new_node.next = temp.next
         temp.next = new_node
         self.length += 1
@@ -142,7 +142,7 @@ class LinkedList:
         if index == self.length - 1:
             return self.pop()
         # Remove a middle node
-        prev = self.get_item(index - 1)  # Get the node before the one to remove
+        prev = self.get(index - 1)  # Get the node before the one to remove
         temp = prev.next  # The node to remove
         prev.next = temp.next  # Skip over 'temp'
         temp.next = None  # Disconnect 'temp'
