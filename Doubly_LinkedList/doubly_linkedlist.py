@@ -39,22 +39,55 @@ class DoublyLinkedList:
             node_to_pop.prev = None
         self.length -= 1
         return node_to_pop
-    
+
     # Prepend a new node
-    def prepend(self,value):
+    def prepend(self, value):
         new_node = Node(value)
         if self.length == 0:
             self.head = new_node
             self.tail = new_node
-        else: 
+        else:
             new_node.next = self.head
             self.head.prev = new_node
             self.head = new_node
         self.length += 1
         return True
-        
-    
-        
+
+    def pop_first(self):
+        if self.length == 0:
+            return None
+        temp = self.head
+        if self.length == 1:
+            self.head = None
+            self.tail = None
+        else:
+            self.head = self.head.next
+            self.head.prev = None
+            temp.next = None
+        self.length -= 1
+        return temp
+
+    # get method
+    def get(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        if index <= self.length // 2:
+            temp = self.head
+            for _ in range(index):
+                temp = temp.next
+        else:
+            temp = self.tail
+            for _ in range(self.length - 1 - index):
+                temp = temp.prev
+        return temp
+
+    # set method
+    def set_value(self, index, value):
+        temp = self.get(index)
+        if temp:
+            temp.value = value
+            return True
+        return False
 
     # method to print all linked list items
     def print_dll(self):
@@ -72,28 +105,18 @@ class DoublyLinkedList:
         print("List emptied")
 
 
-my_doubly_linked_list = DoublyLinkedList(7)
+my_doubly_linked_list = DoublyLinkedList(0)
+my_doubly_linked_list.append(1)
 my_doubly_linked_list.append(2)
-my_doubly_linked_list.append(8)
-# my_doubly_linked_list.empty_ddl()
+my_doubly_linked_list.append(3)
+my_doubly_linked_list.append(4)
+my_doubly_linked_list.append(5)
 
 
-print()
-print("Before prepend: ")
-print("-" * 40)
-print("Doubly LinkedList: ", end="")
 my_doubly_linked_list.print_dll()
-print("Head:", my_doubly_linked_list.head.value)
-print("Tail:", my_doubly_linked_list.tail.value)
-print("Length:", my_doubly_linked_list.length) 
 
-my_doubly_linked_list.prepend(90)
+print(my_doubly_linked_list.set_value(2, 100))
 
-print()
-print("After prepend: ")
-print("-" * 40)
-print("Doubly LinkedList: ", end="")
+print(my_doubly_linked_list.set_value(5, 90))
+
 my_doubly_linked_list.print_dll()
-print("Head:", my_doubly_linked_list.head.value)
-print("Tail:", my_doubly_linked_list.tail.value)
-print("Length:", my_doubly_linked_list.length)
