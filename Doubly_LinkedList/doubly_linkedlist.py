@@ -1,3 +1,4 @@
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -88,6 +89,25 @@ class DoublyLinkedList:
             temp.value = value
             return True
         return False
+    
+    # insert method
+    def insert(self, index, value):
+        if index < 0 or index >  self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+        new_node = Node(value)
+        before = self.get(index-1)
+        after = before.next
+        new_node.prev = before
+        new_node.next = after
+        before.next = new_node
+        after.prev = new_node
+        self.length += 1
+        return True
+        
 
     # method to print all linked list items
     def print_dll(self):
@@ -115,8 +135,8 @@ my_doubly_linked_list.append(5)
 
 my_doubly_linked_list.print_dll()
 
-print(my_doubly_linked_list.set_value(2, 100))
+print(my_doubly_linked_list.insert(2, 100))
 
-print(my_doubly_linked_list.set_value(5, 90))
+print(my_doubly_linked_list.insert(6, 90))
 
 my_doubly_linked_list.print_dll()
